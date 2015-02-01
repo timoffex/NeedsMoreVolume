@@ -4,12 +4,12 @@ package com.timoffex.structure;
 // Each method sends a message to the client, DOES NOT TRY TO ACTUALLY PLAY SOUND.
 public abstract class TClient {
 	// starts sound clip at time milliseconds from Jan 1, 1970
-	public abstract void start(long time);
+	public abstract boolean start(long time);
 	// stops immediately (as soon as message received; no synchronization needed)
-	public abstract void stopNow();
+	public abstract boolean stopNow();
 	// pauses clip at given (real world) time
-	public abstract void pause(long time);
+	public abstract boolean pause(long time);
 
 	// synchronizes sound clips such that the clip is at clipTime at realTime (milliseconds from Jan 1, 1970)
-	public abstract void sync(long realTime, long clipTime);
+	public abstract boolean sync(long realTime, long clipTime);
 }
