@@ -7,14 +7,14 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.button
+import android.widget.button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    ArrayAdapter<String>
+    ArrayAdapter<String>;
 	Button connectNew;
 	ListView listView;
 	BluetoothAdapter btAdapter;
@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
 		devicesArray = btAdapter.getBondedDevices();
 		if(devicesArray.size() > 0){
 			for(BluetoothDevice device:devicesArray){
-				pairedDevices.add(device.getName();
+				pairedDevices.add(device.getName());
 			}
 		}
 	}
