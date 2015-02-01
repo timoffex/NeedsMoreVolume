@@ -1,11 +1,15 @@
 package com.timoffex.structure.android_impl;
 
 import android.bluetooth.BluetoothSocket;
+import android.provider.MediaStore;
 
 import com.timoffex.structure.TClient;
 import static com.timoffex.structure.Util.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
@@ -63,6 +67,25 @@ public class AndroidClient extends TClient {
         try {
             o = socket.getOutputStream();
             o.write(concat(toBytes("sync"), toBytes(realTime), toBytes(clipTime)));
+        } catch (IOException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean stream(InputStream f) {
+        OutputStream o;
+
+        try {
+            o = socket.getOutputStream();
+
+            byte[] buffer = new byte[1024<<10];
+            int len;
+            while ((len = f.read(buffer)) != -1) {
+                o.write(buffer, 0, len);
+            }
         } catch (IOException e) {
             return false;
         }

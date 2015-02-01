@@ -1,5 +1,6 @@
 package com.timoffex.structure;
 
+import java.io.File;
 import java.util.List;
 import java.util.Date;
 
@@ -39,6 +40,14 @@ public abstract class TInterfaceHost {
 			t.sync(realTime, clipTime);
 		}
 	}
+
+    public final void broadcastSound(File f) {
+        List<TClient> clients = getClients();
+
+        for (TClient t : clients) {
+            t.stream(f);
+        }
+    }
 
 	public abstract List<TClient> getClients();
 }

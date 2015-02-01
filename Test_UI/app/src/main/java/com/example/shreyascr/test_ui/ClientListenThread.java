@@ -31,10 +31,15 @@ public class ClientListenThread extends Thread {
 
         byte[] bytes = new byte[1024];
         try {
-            while (in.read(bytes) != -1) {
-                process(bytes);
+            int len;
+            while ((len=in.read(bytes)) != -1) {
+                process(bytes, len);
             }
         } catch (IOException e) { }
+    }
+
+    private void process(byte[] bytes, int len) {
+
     }
 
     public void cancel() {
