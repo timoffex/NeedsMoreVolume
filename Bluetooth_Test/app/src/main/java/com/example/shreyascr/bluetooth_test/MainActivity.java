@@ -7,10 +7,13 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.button;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
+import java.util.ArrayList;
+import android.content.IntentFilter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -18,7 +21,7 @@ public class MainActivity extends ActionBarActivity {
 	Button connectNew;
 	ListView listView;
 	BluetoothAdapter btAdapter;
-	Set<BluetoothDevices> devicesArray;
+	Set<BluetoothDevice> devicesArray;
 	ArrayList<String> pairedDevices;
 	IntentFilter filter;
 	BroadcastReceiver receiver;
@@ -33,14 +36,18 @@ public class MainActivity extends ActionBarActivity {
 			finish();
 		}
 		else{
-			if (!bt.Adapter.isEnabled()){
+			if (!btAdapter.isEnabled()){
 				Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 				startActivityforResult(intent, 1);
 			}
 			getPairedDevices();
 		}
 	}
-	
+
+    private void startActivityforResult(Intent i, int num){
+
+    }
+
 	private void getPairedDevices(){
 		devicesArray = btAdapter.getBondedDevices();
 		if(devicesArray.size() > 0){
@@ -52,37 +59,37 @@ public class MainActivity extends ActionBarActivity {
 
 	private void init(){
 		connectNew=(Button)findViewById(R.id.bConnectNew);
-		listView=(ListView)findViewById(R.id.ListView);
+		listView=(ListView)findViewById(R.id.listView);
 		listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,0);
 		listView.setAdapter(listAdapter);
 		btAdapter = BluetoothAdapter.getDefaultAdapter();
 		pairedDevices = new ArrayList<String>();
 		filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-		receive = new BroadcastReceiver(){
+		receiver = new BroadcastReceiver(){
 			@Override
 			public void onReceive (Context context, Intent intent){
 				String action = intent.getAction();
 				
 				if (BluetoothDevice.ACTION_FOUND.equals(action)){
-					BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVIC);
+					BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 					listAdapter.add(device.getName() + "\n" + device.getAddress());
 				}
 			}
 		};
 		registerReceiver(receiver, filter);
-		IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+		filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
 		registerReceiver(receiver, filter);
-		IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+		filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
 		registerReceiver(receiver, filter);
-		IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+		filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
 		registerReceiver(receiver, filter);
 	}
 	
 	protected void onActivityResult (int requestCode, int resultCode, Intent data){
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_CANCLED){
-			Toast.makeText(getAplicationContext(), "Bluetooth must be enabled to continue");
-			finsh();
+		if (resultCode == RESULT_CANCELED){
+			Toast.makeText(getApplicationContext(), "Bluetooth must be enabled to continue");
+			finish();
 		}
 	}		
 }
