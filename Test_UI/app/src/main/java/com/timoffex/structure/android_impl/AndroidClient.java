@@ -32,10 +32,41 @@ public class AndroidClient extends TClient {
     }
 
     // stops immediately (as soon as message received; no synchronization needed)
-    public abstract boolean stopNow();
+    public boolean stopNow() {
+        OutputStream o;
+        try {
+            o = socket.getOutputStream();
+            o.write(concat(toBytes("stopNow")));
+        } catch (IOException e) {
+            return false;
+        }
+
+        return true;
+    }
+
     // pauses clip at given (real world) time
-    public abstract boolean pause(long time);
+    public boolean pause(long time) {
+        OutputStream o;
+        try {
+            o = socket.getOutputStream();
+            o.write(concat(toBytes("pause"), toBytes(time)));
+        } catch (IOException e) {
+            return false;
+        }
+
+        return true;
+    }
 
     // synchronizes sound clips such that the clip is at clipTime at realTime (milliseconds from Jan 1, 1970)
-    public abstract boolean sync(long realTime, long clipTime);
+    public boolean sync(long realTime, long clipTime) {
+        OutputStream o;
+        try {
+            o = socket.getOutputStream();
+            o.write(concat(toBytes("sync"), toBytes(realTime), toBytes(clipTime)));
+        } catch (IOException e) {
+            return false;
+        }
+
+        return true;
+    }
 }
