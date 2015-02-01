@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
-    ArrayAdapter<String>;
+    ArrayAdapter<String> listAdapter;
 	Button connectNew;
 	ListView listView;
 	BluetoothAdapter btAdapter;
