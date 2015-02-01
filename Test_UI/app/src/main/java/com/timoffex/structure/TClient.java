@@ -1,4 +1,4 @@
-package com.example.shreyascr.test_ui;
+package com.timoffex.structure;
 
 public abstract class TClient {
 	// starts sound clip at time milliseconds from Jan 1, 1970

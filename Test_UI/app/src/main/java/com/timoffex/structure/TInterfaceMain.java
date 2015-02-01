@@ -1,4 +1,4 @@
-package com.example.shreyascr.test_ui;
+package com.timoffex.structure;
 
 import java.util.List;
 
