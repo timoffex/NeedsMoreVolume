@@ -1,5 +1,7 @@
 package com.timoffex.structure;
 
+// Client from server side.
+// Each method sends a message to the client, DOES NOT TRY TO ACTUALLY PLAY SOUND.
 public abstract class TClient {
 	// starts sound clip at time milliseconds from Jan 1, 1970
 	public abstract void start(long time);
