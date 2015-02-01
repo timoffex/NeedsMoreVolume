@@ -1,9 +1,11 @@
+package com.example.shreyascr.test_ui;
+
 import java.util.List;
 
 public abstract class TInterfaceMain {
 	/** Creates server on the current device. 
 	  * @return True on success. */
-	public final boolean hostServer();
+	public abstract boolean hostServer();
 
 	/** Finds all nearby compatible servers.
 	  * @return List of all servers */

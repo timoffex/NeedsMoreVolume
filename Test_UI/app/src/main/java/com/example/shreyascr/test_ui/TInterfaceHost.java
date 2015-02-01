@@ -1,3 +1,5 @@
+package com.example.shreyascr.test_ui;
+
 import java.util.List;
 import java.util.Date;
 
@@ -5,7 +7,7 @@ public abstract class TInterfaceHost {
 	public final void broadcastStart() {
 		List<TClient> clients = getClients();
 
-		long time = Date.getTime();
+		long time = new Date().getTime();
 
 		for (TClient t : clients) {
 			t.start(time);
@@ -13,7 +15,7 @@ public abstract class TInterfaceHost {
 	}
 
 	public final void broadcastStopImmediate() {
-		List<TClient> clients = getClients():
+		List<TClient> clients = getClients();
 
 		for (TClient t : clients) {
 			t.stopNow();
@@ -23,7 +25,7 @@ public abstract class TInterfaceHost {
 	public final void broadcastPause() {
 		List<TClient> clients = getClients();
 
-		long time = Date.getTime();
+		long time = new Date().getTime();
 
 		for (TClient t : clients) {
 			t.pause(time);
