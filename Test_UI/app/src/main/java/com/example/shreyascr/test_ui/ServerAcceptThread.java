@@ -18,17 +18,10 @@ public class ServerAcceptThread extends Thread {
     private BluetoothAdapter adapter;
     private BluetoothServerSocket serverSocket;
 
-    public ServerAcceptThread(AndroidInterfaceHost h, BluetoothAdapter a, String name, UUID uuid) {
+    public ServerAcceptThread(AndroidInterfaceHost h, BluetoothAdapter a, String name, UUID uuid) throws IOException {
         host = h;
         adapter = a;
-
-        BluetoothServerSocket tmp = null;
-
-        try {
-            tmp = listenUsingRfcommWithServiceRecord(name, uuid);
-        } catch (IOException e) {}
-
-        serverSocket = tmp;
+        serverSocket = adapter.listenUsingRfcommWithServiceRecord(name, uuid);
     }
 
     @Override
@@ -46,5 +39,11 @@ public class ServerAcceptThread extends Thread {
                 host.clientConnected(client);
             }
         }
+    }
+
+    public void cancel() {
+        try {
+            serverSocket.close();
+        } catch (IOException e) {}
     }
 }
